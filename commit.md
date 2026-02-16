@@ -163,6 +163,16 @@ Kebutuhan PDF: buat branch `ci-cd`, tambahkan JaCoCo + konfigurasi `test`, lalu 
 - Merge `ci-cd` -> `main` (merge commit eksplisit): `fc0e730` - `Merge pull request #5 from .../ci-cd`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/5
 
+- Commit: `aa797a2` - `Add Scorecards permissions for private repo`
+  - Menambahkan permission read tambahan (`issues`, `pull-requests`, `checks`) agar Scorecards bisa berjalan di private repository.
+- Merge `ci-cd` -> `main` (merge commit eksplisit): `2fdbb15` - `Merge pull request #8 from .../ci-cd`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/8
+
+- Commit: `ee2f03e` - `Allow Scorecards SARIF upload to fail`
+  - Menghindari workflow Scorecards gagal ketika fitur Code Scanning (Advanced Security) tidak tersedia pada private repository, dengan `continue-on-error` pada step upload SARIF.
+- Merge `ci-cd` -> `main` (merge commit eksplisit): `c09f8c8` - `Merge pull request #11 from .../ci-cd`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/11
+
 ## Exercise - Branch `module-2-exercise`
 
 Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambahkan tool scanning/analysis (PMD), perbaiki minimal satu isu, lalu implement auto-deploy workflow, commit, push, dan merge ke `main` via PR.
@@ -191,3 +201,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Menghindari workflow deploy gagal ketika secret `RENDER_DEPLOY_HOOK` belum dikonfigurasi.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `7c59da7` - `Merge pull request #6 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/6
+
+- Commit: `9956957` - `Skip SARIF upload when code scanning is unavailable`
+  - Menghindari workflow PMD gagal ketika fitur Code Scanning (Advanced Security) tidak tersedia pada private repository.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `04617b5` - `Merge pull request #10 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/10
