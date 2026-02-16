@@ -138,3 +138,40 @@ Kebutuhan PDF: tulis Refleksi 1 dan Refleksi 2 di `README.md` pada branch `main`
     - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-1-Coding-Standard/pull/8
 - Tidak ada rewrite history (tidak ada force-push, tidak ada squash merge). Semua branch fitur digabung ke `main` lewat PR dengan merge commit eksplisit (bukan fast-forward).
 - Fix-delete-redirect (yang nantinya bernama bugfix) di merge ke delete product karena perbedaannya dengan delete-product dianggap tidak signifikan enough untuk menjadi branch yang baru
+
+# Kepatuhan Riwayat Commit (Module 02 / CI/CD & DevOps)
+
+Dokumen ini memetakan checkpoint commit yang diminta pada **Module 02 - CI/CD & DevOps** (bagian Tutorial & Exercise) ke commit dan merge commit yang ada di repository ini.
+
+## Tutorial - Branch `ci-cd`
+
+Kebutuhan PDF: buat branch `ci-cd`, tambahkan JaCoCo + konfigurasi `test`, lalu buat workflow CI dan OSSF Scorecard, commit, push, dan merge ke `main` via PR.
+
+- Commit: `0e78ff7` - `Add JaCoCo and configure test task`
+  - Menambahkan plugin `jacoco` dan memastikan task `test` tidak menjalankan functional test, serta selalu menghasilkan report JaCoCo.
+- Commit: `6b54b85` - `Add CI workflow`
+  - Menambahkan: `.github/workflows/ci.yml` (trigger `push` dan `pull_request`).
+- Commit: `3dfa527` - `Add OSSF Scorecard workflow`
+  - Menambahkan: `.github/workflows/scorecards.yml` (OSSF Scorecard).
+- Merge `ci-cd` -> `main` (merge commit eksplisit): `1593dbe` - `Merge pull request #1 from .../ci-cd`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/1
+
+## Exercise - Branch `module-2-exercise`
+
+Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambahkan tool scanning/analysis (PMD), perbaiki minimal satu isu, lalu implement auto-deploy workflow, commit, push, dan merge ke `main` via PR.
+
+- Commit: `db49543` - `Add unit tests for service and controller`
+  - Menambahkan unit test untuk `ProductServiceImpl` dan `ProductController`.
+  - Code coverage (JaCoCo `test`): **49% -> 96%**.
+- Commit: `f5087dc` - `Add PMD workflow`
+  - Menambahkan: `.github/workflows/pmd.yml` (trigger setiap `push` ke setiap branch).
+  - PMD version diset ke `7.0.0-rc4` sesuai instruksi PDF untuk kompatibilitas Java 21.
+- Commit: `158689b` - `Suppress PMD warning in EshopApplication`
+  - Memperbaiki temuan PMD `UseUtilityClass` (false-positive) dengan suppression pada `EshopApplication`.
+- Commit: `04b2235` - `Make Gradle wrapper executable`
+  - Membuat `gradlew` executable supaya workflow Linux bisa menjalankan `./gradlew ...`.
+- Commit: `09b645b` - `Add Render deployment workflow and Dockerfile`
+  - Menambahkan: `.github/workflows/deploy.yml` (auto-deploy via Render deploy hook).
+  - Menambahkan: `Dockerfile` serta konfigurasi `server.port=${PORT:8080}` untuk kebutuhan PaaS.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `61115e8` - `Merge pull request #2 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/2
