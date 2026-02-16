@@ -156,6 +156,13 @@ Kebutuhan PDF: buat branch `ci-cd`, tambahkan JaCoCo + konfigurasi `test`, lalu 
 - Merge `ci-cd` -> `main` (merge commit eksplisit): `1593dbe` - `Merge pull request #1 from .../ci-cd`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/1
 
+### Follow-up Fix (Workflow)
+
+- Commit: `d09cec8` - `Fix Scorecards workflow permissions`
+  - Menambahkan permission `contents: read` dan `actions: read` agar workflow Scorecards bisa checkout dan upload hasil analisis.
+- Merge `ci-cd` -> `main` (merge commit eksplisit): `fc0e730` - `Merge pull request #5 from .../ci-cd`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/5
+
 ## Exercise - Branch `module-2-exercise`
 
 Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambahkan tool scanning/analysis (PMD), perbaiki minimal satu isu, lalu implement auto-deploy workflow, commit, push, dan merge ke `main` via PR.
@@ -175,3 +182,12 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Menambahkan: `Dockerfile` serta konfigurasi `server.port=${PORT:8080}` untuk kebutuhan PaaS.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `61115e8` - `Merge pull request #2 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/2
+
+### Follow-up Fix (Workflow)
+
+- Commit: `9502932` - `Fix SARIF upload permissions`
+  - Menambahkan permission `actions: read` agar langkah `upload-sarif` tidak gagal dengan error `Resource not accessible by integration`.
+- Commit: `5b50f6f` - `Skip deploy when Render secret is missing`
+  - Menghindari workflow deploy gagal ketika secret `RENDER_DEPLOY_HOOK` belum dikonfigurasi.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `7c59da7` - `Merge pull request #6 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/6
