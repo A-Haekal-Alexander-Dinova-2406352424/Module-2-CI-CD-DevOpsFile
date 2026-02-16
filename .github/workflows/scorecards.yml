@@ -16,6 +16,9 @@ jobs:
     permissions:
       contents: read
       actions: read
+      issues: read
+      pull-requests: read
+      checks: read
       # Needed to upload the results to code-scanning dashboard.
       security-events: write
       id-token: write
