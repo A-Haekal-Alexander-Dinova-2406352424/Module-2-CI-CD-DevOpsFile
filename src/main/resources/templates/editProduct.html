@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Edit Product</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        .container { max-width: 480px; }
+        label { display: block; margin-top: 1rem; }
+        input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
+        .actions { margin-top: 1.5rem; display: flex; gap: 0.75rem; }
+        .btn { display: inline-block; padding: 0.5rem 0.75rem; text-decoration: none; border: 1px solid #0d6efd; background: #0d6efd; color: #fff; border-radius: 4px; }
+        .btn.secondary { background: #fff; color: #0d6efd; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Edit Product</h1>
+    <form th:action="@{/product/edit}" th:object="${product}" method="post">
+        <input th:field="*{productId}" type="hidden"/>
+
+        <label for="productName">Name</label>
+        <input id="productName" th:field="*{productName}" type="text" required/>
+
+        <label for="productQuantity">Quantity</label>
+        <input id="productQuantity" th:field="*{productQuantity}" type="number" min="0" required/>
+
+        <div class="actions">
+            <button id="submitEditButton" class="btn" type="submit">Save</button>
+            <a id="backToListLink" class="btn secondary" th:href="@{/product/list}">Back</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
