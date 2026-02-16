@@ -14,6 +14,8 @@ jobs:
     name: Scorecards analysis
     runs-on: ubuntu-latest
     permissions:
+      contents: read
+      actions: read
       # Needed to upload the results to code-scanning dashboard.
       security-events: write
       id-token: write
