@@ -28,8 +28,8 @@ jobs:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
           if [ -z "$RENDER_DEPLOY_HOOK" ]; then
-            echo "Missing secret: RENDER_DEPLOY_HOOK"
-            exit 1
+            echo "Skipping deploy: missing secret RENDER_DEPLOY_HOOK"
+            exit 0
           fi
           curl -fsSL -X POST "$RENDER_DEPLOY_HOOK"
 
