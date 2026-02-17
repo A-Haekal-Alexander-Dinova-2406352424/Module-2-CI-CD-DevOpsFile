@@ -41,8 +41,8 @@ jobs:
         uses: koyeb/action-git-deploy@v1
         with:
           api_token: ${{ secrets.KOYEB_API_TOKEN }}
-          app-name: ${{ vars.KOYEB_APP_NAME || 'module-2-ci-cd-devopsfile' }}
-          service-name: ${{ vars.KOYEB_SERVICE_NAME || 'eshop' }}
+          app-name: module-2-ci-cd-devopsfile
+          service-name: eshop
           git-builder: docker
           service-env: PORT=8080
           service-ports: "8080:http"
