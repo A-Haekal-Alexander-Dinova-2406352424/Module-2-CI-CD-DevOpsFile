@@ -223,3 +223,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Mengganti pengecekan secret menjadi truthy/falsey (`secrets.KOYEB_API_TOKEN`) agar workflow deploy dapat diparse dan tetap bisa skip dengan aman ketika token belum diset.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `f76f836` - `Merge pull request #18 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/18
+
+- Commit: `7cae127` - `Fix deploy workflow YAML parsing`
+  - Memperbaiki YAML yang invalid pada workflow deploy dan memindahkan gating token ke `env` agar workflow bisa berjalan dan tetap skip ketika `KOYEB_API_TOKEN` belum diset.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `3ba24ca` - `Merge pull request #20 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/20
