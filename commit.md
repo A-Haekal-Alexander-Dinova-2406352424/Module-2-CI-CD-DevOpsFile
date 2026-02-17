@@ -206,3 +206,10 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Menghindari workflow PMD gagal ketika fitur Code Scanning (Advanced Security) tidak tersedia pada private repository.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `04617b5` - `Merge pull request #10 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/10
+
+- Commit: `55bb588` - `Switch deploy workflow to Koyeb`
+  - Mengganti workflow deploy dari Render ke Koyeb supaya deployment tidak bergantung pada `RENDER_DEPLOY_HOOK`.
+  - Deploy sekarang menggunakan `koyeb/action-git-deploy` dan akan skip jika secret `KOYEB_API_TOKEN` belum diset.
+  - Konfigurasi nama app/service dapat diatur lewat repository variables `KOYEB_APP_NAME` dan `KOYEB_SERVICE_NAME`.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `085f938` - `Merge pull request #13 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/13
