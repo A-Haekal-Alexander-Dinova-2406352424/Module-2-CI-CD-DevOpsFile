@@ -218,3 +218,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Mengganti konfigurasi `app-name`/`service-name` menjadi nilai eksplisit agar workflow deploy valid dan dapat dijalankan.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `5cae317` - `Merge pull request #16 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/16
+
+- Commit: `39fc7fe` - `Fix Koyeb deploy secret checks`
+  - Mengganti pengecekan secret menjadi truthy/falsey (`secrets.KOYEB_API_TOKEN`) agar workflow deploy dapat diparse dan tetap bisa skip dengan aman ketika token belum diset.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `f76f836` - `Merge pull request #18 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/18
