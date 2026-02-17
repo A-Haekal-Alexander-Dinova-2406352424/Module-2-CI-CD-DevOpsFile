@@ -210,6 +210,11 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
 - Commit: `55bb588` - `Switch deploy workflow to Koyeb`
   - Mengganti workflow deploy dari Render ke Koyeb supaya deployment tidak bergantung pada `RENDER_DEPLOY_HOOK`.
   - Deploy sekarang menggunakan `koyeb/action-git-deploy` dan akan skip jika secret `KOYEB_API_TOKEN` belum diset.
-  - Konfigurasi nama app/service dapat diatur lewat repository variables `KOYEB_APP_NAME` dan `KOYEB_SERVICE_NAME`.
+  - Nama app/service dapat disesuaikan di workflow deploy jika diperlukan.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `085f938` - `Merge pull request #13 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/13
+
+- Commit: `b189ff3` - `Fix Koyeb deploy workflow inputs`
+  - Mengganti konfigurasi `app-name`/`service-name` menjadi nilai eksplisit agar workflow deploy valid dan dapat dijalankan.
+- Merge `module-2-exercise` -> `main` (merge commit eksplisit): `5cae317` - `Merge pull request #16 from .../module-2-exercise`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/16
