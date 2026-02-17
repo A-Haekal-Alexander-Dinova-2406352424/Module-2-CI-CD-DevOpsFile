@@ -27,17 +27,17 @@ jobs:
         run: ./gradlew test
 
       - name: Skip deploy when Koyeb token is missing
-        if: ${{ secrets.KOYEB_API_TOKEN == '' }}
+        if: ${{ !secrets.KOYEB_API_TOKEN }}
         run: echo "Skipping deploy: missing secret KOYEB_API_TOKEN"
 
       - name: Install and configure the Koyeb CLI
-        if: ${{ secrets.KOYEB_API_TOKEN != '' }}
+        if: ${{ secrets.KOYEB_API_TOKEN }}
         uses: koyeb-community/koyeb-actions@v2
         with:
           api_token: ${{ secrets.KOYEB_API_TOKEN }}
 
       - name: Deploy to Koyeb
-        if: ${{ secrets.KOYEB_API_TOKEN != '' }}
+        if: ${{ secrets.KOYEB_API_TOKEN }}
         uses: koyeb/action-git-deploy@v1
         with:
           api_token: ${{ secrets.KOYEB_API_TOKEN }}
