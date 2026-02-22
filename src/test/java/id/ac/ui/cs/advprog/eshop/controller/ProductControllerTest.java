@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ class ProductControllerTest {
     @Mock
     private Model model;
 
+    @Mock
+    private BindingResult bindingResult;
+
     @InjectMocks
     private ProductController controller;
 
@@ -37,11 +41,23 @@ class ProductControllerTest {
     @Test
     void createProductPostCreatesProductAndRedirectsToList() {
         Product product = new Product();
+        when(bindingResult.hasErrors()).thenReturn(false);
 
-        String viewName = controller.createProductPost(product, model);
+        String viewName = controller.createProductPost(product, bindingResult, model);
 
         verify(service).create(product);
         assertEquals("redirect:/product/list", viewName);
+    }
+
+    @Test
+    void createProductPostReturnsCreateViewWhenBindingHasErrors() {
+        Product product = new Product();
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = controller.createProductPost(product, bindingResult, model);
+
+        verifyNoInteractions(service);
+        assertEquals("createProduct", viewName);
     }
 
     @Test
@@ -80,11 +96,23 @@ class ProductControllerTest {
     @Test
     void editProductPostUpdatesProductAndRedirectsToList() {
         Product product = new Product();
+        when(bindingResult.hasErrors()).thenReturn(false);
 
-        String viewName = controller.editProductPost(product, model);
+        String viewName = controller.editProductPost(product, bindingResult, model);
 
         verify(service).update(product);
         assertEquals("redirect:/product/list", viewName);
+    }
+
+    @Test
+    void editProductPostReturnsEditViewWhenBindingHasErrors() {
+        Product product = new Product();
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String viewName = controller.editProductPost(product, bindingResult, model);
+
+        verifyNoInteractions(service);
+        assertEquals("editProduct", viewName);
     }
 
     @Test
