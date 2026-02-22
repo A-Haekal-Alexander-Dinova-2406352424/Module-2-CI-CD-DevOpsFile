@@ -190,6 +190,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Memperbaiki temuan PMD `UseUtilityClass` (false-positive) dengan suppression pada `EshopApplication`.
 - Commit: `518e8c7` - `Fix PMD warning in EshopApplication`
   - Menghapus suppression dan melakukan refactor entrypoint (`main` -> `run`) agar tidak terdeteksi sebagai utility class oleh ruleset PMD quickstart (tanpa mengubah perilaku runtime aplikasi).
+- Commit: `1d68e03` - `Prevent 400 on large quantity input`
+  - Mengubah `productQuantity` dari `int` ke `long` dan menangani error binding pada controller agar input angka besar tidak menghasilkan error 400.
 - Commit: `04b2235` - `Make Gradle wrapper executable`
   - Membuat `gradlew` executable supaya workflow Linux bisa menjalankan `./gradlew ...`.
 - Commit: `09b645b` - `Add Render deployment workflow and Dockerfile`
