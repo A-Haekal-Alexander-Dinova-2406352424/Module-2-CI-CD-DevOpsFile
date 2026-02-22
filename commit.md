@@ -239,3 +239,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Upload SARIF diatur agar otomatis diskip ketika fitur Code Scanning tidak tersedia.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `500359f` - `Merge pull request #22 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/22
+
+- Commit: `00c19d9` - `Fix Scorecards publish on non-main`
+  - Membuat `publish_results` hanya aktif di branch `main` untuk menghindari error Scorecards saat push di branch lain.
+- Commit: `a071873` - `Skip Scorecards analysis on branches`
+  - `scorecard-action` membatasi event `push` agar hanya berjalan di default branch. Step analisis dan upload kini dijalankan hanya di `main` supaya workflow Scorecards tidak gagal di branch fitur dan tidak menghambat merge PR.
