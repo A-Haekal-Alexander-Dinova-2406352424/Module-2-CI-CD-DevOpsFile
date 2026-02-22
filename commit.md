@@ -180,6 +180,9 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
 - Commit: `db49543` - `Add unit tests for service and controller`
   - Menambahkan unit test untuk `ProductServiceImpl` dan `ProductController`.
   - Code coverage (JaCoCo `test`): **49% -> 96%**.
+- Commit: `8af7018` - `Add tests for 100% JaCoCo coverage`
+  - Menambahkan unit test untuk menutup case yang belum tercakup di `EshopApplication`, `ProductRepository`, dan `ProductServiceImpl`.
+  - Code coverage (JaCoCo `test`): **96% -> 100%**.
 - Commit: `f5087dc` - `Add PMD workflow`
   - Menambahkan: `.github/workflows/pmd.yml` (trigger setiap `push` ke setiap branch).
   - PMD version diset ke `7.0.0-rc4` sesuai instruksi PDF untuk kompatibilitas Java 21.
