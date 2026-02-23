@@ -43,7 +43,7 @@ class ProductControllerTest {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(false);
 
-        String viewName = controller.createProductPost(product, bindingResult, model);
+        String viewName = controller.createProductPost(product, bindingResult);
 
         verify(service).create(product);
         assertEquals("redirect:/product/list", viewName);
@@ -54,7 +54,7 @@ class ProductControllerTest {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(true);
 
-        String viewName = controller.createProductPost(product, bindingResult, model);
+        String viewName = controller.createProductPost(product, bindingResult);
 
         verifyNoInteractions(service);
         assertEquals("createProduct", viewName);
@@ -98,7 +98,7 @@ class ProductControllerTest {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(false);
 
-        String viewName = controller.editProductPost(product, bindingResult, model);
+        String viewName = controller.editProductPost(product, bindingResult);
 
         verify(service).update(product);
         assertEquals("redirect:/product/list", viewName);
@@ -109,7 +109,7 @@ class ProductControllerTest {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(true);
 
-        String viewName = controller.editProductPost(product, bindingResult, model);
+        String viewName = controller.editProductPost(product, bindingResult);
 
         verifyNoInteractions(service);
         assertEquals("editProduct", viewName);
@@ -117,7 +117,7 @@ class ProductControllerTest {
 
     @Test
     void deleteProductPostDeletesProductAndRedirectsToList() {
-        String viewName = controller.deleteProductPost("id-1", model);
+        String viewName = controller.deleteProductPost("id-1");
 
         verify(service).delete("id-1");
         assertEquals("redirect:/product/list", viewName);
