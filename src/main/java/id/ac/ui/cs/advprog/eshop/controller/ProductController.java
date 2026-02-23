@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, BindingResult bindingResult, Model model) {
+    public String createProductPost(@ModelAttribute Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "createProduct";
         }
@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @PostMapping("/edit")
-    public String editProductPost(@ModelAttribute Product product, BindingResult bindingResult, Model model) {
+    public String editProductPost(@ModelAttribute Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "editProduct";
         }
@@ -67,7 +67,7 @@ public class ProductController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteProductPost(@PathVariable("id") String id, Model model) {
+    public String deleteProductPost(@PathVariable("id") String id) {
         service.delete(id);
         return "redirect:/product/list";
     }
