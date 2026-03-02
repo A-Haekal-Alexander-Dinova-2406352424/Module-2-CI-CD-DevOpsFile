@@ -246,3 +246,57 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Membuat `publish_results` hanya aktif di branch `main` untuk menghindari error Scorecards saat push di branch lain.
 - Commit: `a071873` - `Skip Scorecards analysis on branches`
   - `scorecard-action` membatasi event `push` agar hanya berjalan di default branch. Step analisis dan upload kini dijalankan hanya di `main` supaya workflow Scorecards tidak gagal di branch fitur dan tidak menghambat merge PR.
+
+# Kepatuhan Riwayat Commit (Module 03 / Maintainability & OO Principles)
+
+Dokumen ini memetakan checkpoint commit yang diminta pada **Module 03 - Maintainability & OO Principles** (bagian Tutorial & Exercise) ke commit yang dibuat pada branch `before-solid` dan `after-solid`.
+
+## Tutorial & Exercise
+
+Kebutuhan PDF:
+
+- Buat branch `before-solid` dari `main`, implement fitur Car (model/repository/service/controller/templates) dengan commit per langkah, lalu push.
+- Merge `before-solid` ke `main` dengan merge commit eksplisit (bukan fast-forward), dan tanpa squash/force push.
+- Buat branch `after-solid`, refactor dengan menerapkan SOLID, commit, lalu push.
+- Merge `after-solid` ke `main` dengan merge commit eksplisit (bukan fast-forward), dan tanpa squash/force push.
+
+### Branch `before-solid`
+
+- Commit: `5e50a8a` - `Add Car model`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/model/Car.java`
+- Commit: `c7f8dbb` - `Add Car repository`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/repository/CarRepository.java`
+- Commit: `87c7fca` - `Add Car service`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/CarService.java`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/CarServiceImpl.java`
+- Commit: `ada946a` - `Add Car controller`
+  - Memodifikasi: `src/main/java/id/ac/ui/cs/advprog/eshop/controller/ProductController.java` (menambahkan handler Car sesuai tutorial)
+- Commit: `cf604fa` - `Add car templates`
+  - Menambahkan: `src/main/resources/templates/createCar.html`
+  - Menambahkan: `src/main/resources/templates/carList.html`
+  - Menambahkan: `src/main/resources/templates/editCar.html`
+
+Catatan merge `before-solid` -> `main`:
+
+- Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
+- PR: (buat dari `before-solid` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit: (isi hash merge commit setelah PR di-merge)
+
+### Branch `after-solid`
+
+- Commit: `2e1a6a8` - `Refactor car feature with SOLID`
+  - Memisahkan controller Car menjadi `CarController` (SRP) dan menghilangkan inheritance yang tidak relevan.
+  - Membuat controller/service bergantung pada abstraksi (`CarService`, `CarRepository`) serta memindahkan implementasi ke class konkret (`CarServiceImpl`, `InMemoryCarRepository`) (DIP/OCP).
+
+Catatan merge `after-solid` -> `main`:
+
+- Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
+- PR: (buat dari `after-solid` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit: (isi hash merge commit setelah PR di-merge)
+
+## Reflection - Branch `reflection`
+
+Kebutuhan PDF: menjawab pertanyaan refleksi di `README.md`.
+
+- Commit: `020fb93` - `Add Module 3 reflection`
+  - Memodifikasi: `README.md`
