@@ -275,6 +275,9 @@ Kebutuhan PDF:
   - Menambahkan: `src/main/resources/templates/createCar.html`
   - Menambahkan: `src/main/resources/templates/carList.html`
   - Menambahkan: `src/main/resources/templates/editCar.html`
+- Commit: `3930c63` - `Fixing Before Solid`
+  - Menambahkan baris `System.out.println(product.getProductId())` dan menyesuaikan pemanggilan `update(productId, product)` sesuai code snippet tutorial.
+  - Menambahkan method alias `update(String, Product)` dan `deleteProductById(String)` pada `ProductService` agar signature sesuai snippet tanpa menghapus API yang sudah ada.
 
 Catatan merge `before-solid` -> `main`:
 
@@ -282,12 +285,17 @@ Catatan merge `before-solid` -> `main`:
 - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/32
 - Merge commit eksplisit di `main`: `4b65f7a` - `Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
   - Bukti (2 parent): `4b65f7a parents:e95deed cf604fa Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
+- PR fix (commit `3930c63`) : (buat PR dari `before-solid` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit fix: (isi hash merge commit setelah PR fix di-merge)
 
 ### Branch `after-solid`
 
 - Commit: `2e1a6a8` - `Refactor car feature with SOLID`
   - Memisahkan controller Car menjadi `CarController` (SRP) dan menghilangkan inheritance yang tidak relevan.
   - Membuat controller/service bergantung pada abstraksi (`CarService`, `CarRepository`) serta memindahkan implementasi ke class konkret (`CarServiceImpl`, `InMemoryCarRepository`) (DIP/OCP).
+- Commit: `8a9ca14` - `Fixing After Solid`
+  - Mengganti `System.out.println(...)` menjadi komponen terpisah `IdLogger` (SRP) dan menggunakan dependency injection (DIP).
+  - Menjaga signature `update(productId, product)` dan `deleteProductById(...)` tetap tersedia untuk kompatibilitas dengan snippet tutorial.
 
 Catatan merge `after-solid` -> `main`:
 
@@ -295,6 +303,24 @@ Catatan merge `after-solid` -> `main`:
 - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/33
 - Merge commit eksplisit di `main`: `51f54f8` - `Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
   - Bukti (2 parent): `51f54f8 parents:4b65f7a 2e1a6a8 Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
+- PR fix (commit `8a9ca14`) : (buat PR dari `after-solid` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit fix: (isi hash merge commit setelah PR fix di-merge)
+
+## Documentation - Branch `documentation`
+
+Kebutuhan: mendokumentasikan checkpoint commit dan bukti merge (PR + merge commit eksplisit) untuk tutorial/exercise.
+
+- Commit: `7532ab9` - `Document Module 3 commits`
+  - Menambahkan section Module 3 (Maintainability & SOLID) ke `commit.md` untuk memetakan checkpoint commit dan catatan merge.
+- Commit: `815d937` - `Fill Module 3 PR links`
+  - Mengisi link PR dan bukti merge commit eksplisit (2 parent) untuk Module 3.
+- Merge `documentation` -> `main`:
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/30
+  - Merge commit eksplisit di `main`: `3465fc9` - `Merge pull request #30 from A-Haekal-Alexander-Dinova-2406352424/documentation`
+    - Bukti (2 parent): `3465fc9 parents:dd01ad1 7532ab9 Merge pull request #30 from A-Haekal-Alexander-Dinova-2406352424/documentation`
+  - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/34
+  - Merge commit eksplisit di `main`: `3b701b8` - `Merge pull request #34 from A-Haekal-Alexander-Dinova-2406352424/documentation`
+    - Bukti (2 parent): `3b701b8 parents:3465fc9 815d937 Merge pull request #34 from A-Haekal-Alexander-Dinova-2406352424/documentation`
 
 ## Reflection - Branch `reflection`
 
