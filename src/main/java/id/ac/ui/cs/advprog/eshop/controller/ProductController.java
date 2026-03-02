@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
+import id.ac.ui.cs.advprog.eshop.logging.IdLogger;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,14 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+    private final ProductService service;
+    private final IdLogger idLogger;
+
     @Autowired
-    private ProductService service;
+    public ProductController(ProductService service, IdLogger idLogger) {
+        this.service = service;
+        this.idLogger = idLogger;
+    }
 
     @GetMapping("/create")
     public String createProductPage(Model model) {
@@ -35,7 +42,7 @@ public class ProductController {
         }
 
         service.create(product);
-        return "redirect:/product/list";
+        return "redirect:list";
     }
 
     @GetMapping("/list")
@@ -49,7 +56,7 @@ public class ProductController {
     public String editProductPage(@PathVariable("id") String id, Model model) {
         Product product = service.findById(id);
         if (product == null) {
-            return "redirect:/product/list";
+            return "redirect:list";
         }
 
         model.addAttribute("product", product);
@@ -62,14 +69,15 @@ public class ProductController {
             return "editProduct";
         }
 
-        service.update(product);
-        return "redirect:/product/list";
+        idLogger.log(product.getProductId());
+        service.update(product.getProductId(), product);
+        return "redirect:list";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteProductPost(@PathVariable("id") String id) {
-        service.delete(id);
-        return "redirect:/product/list";
+        service.deleteProductById(id);
+        return "redirect:list";
     }
 }
 

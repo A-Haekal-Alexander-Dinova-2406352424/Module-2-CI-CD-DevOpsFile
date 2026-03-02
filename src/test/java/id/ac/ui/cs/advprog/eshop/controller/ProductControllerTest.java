@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
+import id.ac.ui.cs.advprog.eshop.logging.IdLogger;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,9 @@ class ProductControllerTest {
 
     @Mock
     private ProductService service;
+
+    @Mock
+    private IdLogger idLogger;
 
     @Mock
     private Model model;
@@ -46,7 +50,7 @@ class ProductControllerTest {
         String viewName = controller.createProductPost(product, bindingResult);
 
         verify(service).create(product);
-        assertEquals("redirect:/product/list", viewName);
+        assertEquals("redirect:list", viewName);
     }
 
     @Test
@@ -78,7 +82,7 @@ class ProductControllerTest {
         String viewName = controller.editProductPage("missing-id", model);
 
         verifyNoInteractions(model);
-        assertEquals("redirect:/product/list", viewName);
+        assertEquals("redirect:list", viewName);
     }
 
     @Test
@@ -96,12 +100,14 @@ class ProductControllerTest {
     @Test
     void editProductPostUpdatesProductAndRedirectsToList() {
         Product product = new Product();
+        product.setProductId("id-1");
         when(bindingResult.hasErrors()).thenReturn(false);
 
         String viewName = controller.editProductPost(product, bindingResult);
 
-        verify(service).update(product);
-        assertEquals("redirect:/product/list", viewName);
+        verify(idLogger).log("id-1");
+        verify(service).update("id-1", product);
+        assertEquals("redirect:list", viewName);
     }
 
     @Test
@@ -119,8 +125,8 @@ class ProductControllerTest {
     void deleteProductPostDeletesProductAndRedirectsToList() {
         String viewName = controller.deleteProductPost("id-1");
 
-        verify(service).delete("id-1");
-        assertEquals("redirect:/product/list", viewName);
+        verify(service).deleteProductById("id-1");
+        assertEquals("redirect:list", viewName);
     }
 }
 

@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
+import id.ac.ui.cs.advprog.eshop.logging.IdLogger;
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import java.util.List;
 public class CarController {
 
     private final CarService service;
+    private final IdLogger idLogger;
 
     @Autowired
-    public CarController(CarService service) {
+    public CarController(CarService service, IdLogger idLogger) {
         this.service = service;
+        this.idLogger = idLogger;
     }
 
     @GetMapping("/createCar")
@@ -39,7 +42,7 @@ public class CarController {
         }
 
         service.create(car);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 
     @GetMapping("/listCar")
@@ -53,7 +56,7 @@ public class CarController {
     public String editCarPage(@PathVariable("id") String id, Model model) {
         Car car = service.findById(id);
         if (car == null) {
-            return "redirect:/car/listCar";
+            return "redirect:listCar";
         }
 
         model.addAttribute("car", car);
@@ -66,14 +69,16 @@ public class CarController {
             return "editCar";
         }
 
+        idLogger.log(car.getCarId());
         service.update(car);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 
     @PostMapping("/deleteCar/{id}")
     public String deleteCarPost(@PathVariable("id") String id) {
+        idLogger.log(id);
         service.delete(id);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 }
 
