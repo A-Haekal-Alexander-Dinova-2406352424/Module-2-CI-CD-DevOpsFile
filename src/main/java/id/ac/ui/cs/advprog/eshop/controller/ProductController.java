@@ -37,7 +37,7 @@ public class ProductController {
         }
 
         service.create(product);
-        return "redirect:/product/list";
+        return "redirect:list";
     }
 
     @GetMapping("/list")
@@ -51,7 +51,7 @@ public class ProductController {
     public String editProductPage(@PathVariable("id") String id, Model model) {
         Product product = service.findById(id);
         if (product == null) {
-            return "redirect:/product/list";
+            return "redirect:list";
         }
 
         model.addAttribute("product", product);
@@ -64,14 +64,15 @@ public class ProductController {
             return "editProduct";
         }
 
-        service.update(product);
-        return "redirect:/product/list";
+        System.out.println(product.getProductId());
+        service.update(product.getProductId(), product);
+        return "redirect:list";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteProductPost(@PathVariable("id") String id) {
-        service.delete(id);
-        return "redirect:/product/list";
+        service.deleteProductById(id);
+        return "redirect:list";
     }
 }
 
@@ -96,7 +97,7 @@ class CarController extends ProductController {
         }
 
         carService.create(car);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 
     @GetMapping("/listCar")
@@ -110,7 +111,7 @@ class CarController extends ProductController {
     public String editCarPage(@PathVariable("id") String id, Model model) {
         Car car = carService.findById(id);
         if (car == null) {
-            return "redirect:/car/listCar";
+            return "redirect:listCar";
         }
 
         model.addAttribute("car", car);
@@ -124,13 +125,13 @@ class CarController extends ProductController {
         }
 
         carService.update(car.getCarId(), car);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 
     @PostMapping("/deleteCar/{id}")
     public String deleteCarPost(@PathVariable("id") String id) {
         carService.deleteCarById(id);
-        return "redirect:/car/listCar";
+        return "redirect:listCar";
     }
 }
 
