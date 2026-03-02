@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
+import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,6 +72,65 @@ public class ProductController {
     public String deleteProductPost(@PathVariable("id") String id) {
         service.delete(id);
         return "redirect:/product/list";
+    }
+}
+
+@Controller
+@RequestMapping("/car")
+class CarController extends ProductController {
+
+    @Autowired
+    private CarServiceImpl carService;
+
+    @GetMapping("/createCar")
+    public String createCarPage(Model model) {
+        Car car = new Car();
+        model.addAttribute("car", car);
+        return "createCar";
+    }
+
+    @PostMapping("/createCar")
+    public String createCarPost(@ModelAttribute Car car, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "createCar";
+        }
+
+        carService.create(car);
+        return "redirect:/car/listCar";
+    }
+
+    @GetMapping("/listCar")
+    public String carListPage(Model model) {
+        List<Car> allCars = carService.findAll();
+        model.addAttribute("cars", allCars);
+        return "carList";
+    }
+
+    @GetMapping("/editCar/{id}")
+    public String editCarPage(@PathVariable("id") String id, Model model) {
+        Car car = carService.findById(id);
+        if (car == null) {
+            return "redirect:/car/listCar";
+        }
+
+        model.addAttribute("car", car);
+        return "editCar";
+    }
+
+    @PostMapping("/editCar")
+    public String editCarPost(@ModelAttribute Car car, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editCar";
+        }
+
+        carService.update(car.getCarId(), car);
+        return "redirect:/car/listCar";
+    }
+
+    @PostMapping("/deleteCar/{id}")
+    public String deleteCarPost(@PathVariable("id") String id) {
+        carService.deleteCarById(id);
+        return "redirect:/car/listCar";
     }
 }
 
