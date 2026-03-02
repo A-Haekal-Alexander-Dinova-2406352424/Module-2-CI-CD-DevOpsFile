@@ -314,6 +314,8 @@ Kebutuhan: mendokumentasikan checkpoint commit dan bukti merge (PR + merge commi
   - Menambahkan section Module 3 (Maintainability & SOLID) ke `commit.md` untuk memetakan checkpoint commit dan catatan merge.
 - Commit: `815d937` - `Fill Module 3 PR links`
   - Mengisi link PR dan bukti merge commit eksplisit (2 parent) untuk Module 3.
+- Commit: `870fc94` - `Document Module 3 follow-up fixes`
+  - Menambahkan checkpoint commit tambahan untuk mengikuti code snippet tutorial serta menambahkan catatan PR/merge untuk perbaikan Module 3.
 - Merge `documentation` -> `main`:
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/30
   - Merge commit eksplisit di `main`: `3465fc9` - `Merge pull request #30 from A-Haekal-Alexander-Dinova-2406352424/documentation`
@@ -321,6 +323,8 @@ Kebutuhan: mendokumentasikan checkpoint commit dan bukti merge (PR + merge commi
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/34
   - Merge commit eksplisit di `main`: `3b701b8` - `Merge pull request #34 from A-Haekal-Alexander-Dinova-2406352424/documentation`
     - Bukti (2 parent): `3b701b8 parents:3465fc9 815d937 Merge pull request #34 from A-Haekal-Alexander-Dinova-2406352424/documentation`
+- PR update (commit `870fc94`): (buat PR dari `documentation` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit update: (isi hash merge commit setelah PR update di-merge)
 
 ## Reflection - Branch `reflection`
 
@@ -331,3 +335,7 @@ Kebutuhan PDF: menjawab pertanyaan refleksi di `README.md`.
 - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/31
 - Merge commit eksplisit di `main`: `dd01ad1` - `Merge pull request #31 from A-Haekal-Alexander-Dinova-2406352424/reflection`
   - Bukti (2 parent): `dd01ad1 parents:51f54f8 6f61187 Merge pull request #31 from A-Haekal-Alexander-Dinova-2406352424/reflection`
+- Commit: `281e715` - `Update Module 3 reflection for logging`
+  - Memperbarui refleksi Module 3 dengan contoh pemisahan logging via `IdLogger` (SRP/DIP/ISP) dan merapikan kutip agar konsisten.
+- PR update (commit `281e715`): (buat PR dari `reflection` ke `main`, lalu isi link PR setelah dibuat)
+- Merge commit update: (isi hash merge commit setelah PR update di-merge)
