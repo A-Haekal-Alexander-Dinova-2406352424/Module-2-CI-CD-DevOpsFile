@@ -279,8 +279,9 @@ Kebutuhan PDF:
 Catatan merge `before-solid` -> `main`:
 
 - Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
-- PR: (buat dari `before-solid` ke `main`, lalu isi link PR setelah dibuat)
-- Merge commit: (isi hash merge commit setelah PR di-merge)
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/32
+- Merge commit eksplisit di `main`: `4b65f7a` - `Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
+  - Bukti (2 parent): `4b65f7a parents:e95deed cf604fa Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
 
 ### Branch `after-solid`
 
@@ -291,8 +292,9 @@ Catatan merge `before-solid` -> `main`:
 Catatan merge `after-solid` -> `main`:
 
 - Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
-- PR: (buat dari `after-solid` ke `main`, lalu isi link PR setelah dibuat)
-- Merge commit: (isi hash merge commit setelah PR di-merge)
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/33
+- Merge commit eksplisit di `main`: `51f54f8` - `Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
+  - Bukti (2 parent): `51f54f8 parents:4b65f7a 2e1a6a8 Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
 
 ## Reflection - Branch `reflection`
 
@@ -300,3 +302,6 @@ Kebutuhan PDF: menjawab pertanyaan refleksi di `README.md`.
 
 - Commit: `020fb93` - `Add Module 3 reflection`
   - Memodifikasi: `README.md`
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/31
+- Merge commit eksplisit di `main`: `dd01ad1` - `Merge pull request #31 from A-Haekal-Alexander-Dinova-2406352424/reflection`
+  - Bukti (2 parent): `dd01ad1 parents:51f54f8 6f61187 Merge pull request #31 from A-Haekal-Alexander-Dinova-2406352424/reflection`
