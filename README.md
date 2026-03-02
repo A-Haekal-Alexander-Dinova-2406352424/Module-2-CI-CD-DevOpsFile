@@ -16,5 +16,22 @@ Saat membangun fitur EShop (create/list/edit/delete), saya berusaha menjaga kode
 
 2. Menurut saya, workflow yang ada sekarang sudah memenuhi definisi Continuous Integration, karena setiap push dan pull request akan menjalankan proses build/test secara otomatis di environment yang konsisten (runner GitHub Actions). Ini membantu memastikan perubahan kecil segera terintegrasi dan tervalidasi, sehingga error bisa terdeteksi lebih awal sebelum masuk ke branch utama. Untuk aspek Continuous Deployment, saya menambahkan workflow deploy yang otomatis berjalan ketika ada perubahan di `main` dan melakukan deploy ke PaaS (Koyeb) setelah test lulus. Workflow ini menggunakan secret `KOYEB_API_TOKEN` untuk autentikasi; jika secret atau konfigurasi service di PaaS belum dipasang, langkah deploy akan diskip dan kondisinya lebih mirip Continuous Delivery (siap deploy, tetapi masih ada setup/manual step yang diperlukan). Dengan begitu, pipeline ini sudah punya komponen CI yang kuat, dan komponen CD yang otomatis setelah prasyarat PaaS terpenuhi.
 
+## Refleksi Module 3 (Maintainability & SOLID)
+
+1. Prinsip SOLID yang saya terapkan:
+   - SRP (Single Responsibility Principle): saya memisahkan handler untuk `Car` dari `Product` dengan membuat `CarController` terpisah, dan memindahkan aturan bisnis (generate `id`) ke layer service supaya repository fokus pada penyimpanan data.
+   - DIP (Dependency Inversion Principle): controller bergantung pada abstraksi (`CarService`), dan service bergantung pada abstraksi (`CarRepository`). Implementasi konkretnya (`CarServiceImpl`, `InMemoryCarRepository`) di-inject oleh Spring.
+   - OCP (Open-Closed Principle): dengan adanya abstraksi `CarRepository`, saya bisa menambah implementasi repository baru (misalnya repository berbasis database) tanpa perlu mengubah kode di controller/service.
+   - LSP (Liskov Substitution Principle): saya menghilangkan pewarisan `CarController extends ProductController` karena tidak merepresentasikan relasi substitusi yang tepat dan berpotensi membawa perilaku yang tidak relevan.
+
+2. Keuntungan menerapkan SOLID pada project ini (dengan contoh):
+   - Perubahan lebih terlokalisasi: contoh, mengganti storage `Car` dari in-memory ke database cukup menambah implementasi `CarRepository` baru tanpa mengubah `CarController`.
+   - Lebih mudah di-test: `CarServiceImpl` dapat diuji dengan membuat stub/mock `CarRepository`, karena dependensinya berupa interface.
+   - Coupling lebih rendah: controller tidak lagi mengikat diri ke class implementasi spesifik, sehingga refactor service/repository lebih aman.
+
+3. Kerugian jika tidak menerapkan SOLID pada project ini (dengan contoh):
+   - Coupling tinggi dan ripple effect: contoh, jika controller langsung bergantung pada `CarServiceImpl`, perubahan internal service mudah “bocor” ke layer atas dan memaksa perubahan di banyak tempat.
+   - Desain pewarisan yang salah meningkatkan risiko bug: endpoint atau behavior yang seharusnya khusus `Product` bisa ikut “terbawa” saat controller lain mewarisi controller tersebut.
+   - Tanggung jawab bercampur lintas layer: contoh, jika generate `id` diletakkan di repository, aturan bisnis dan persistence tercampur sehingga reasoning lebih sulit dan potensi duplikasi meningkat saat fitur berkembang.
 ## Link Hasil Deploy
 dule-2-ci-cd-devopsfile-eshop-paling-keren-7bc4b742.koyeb.app
