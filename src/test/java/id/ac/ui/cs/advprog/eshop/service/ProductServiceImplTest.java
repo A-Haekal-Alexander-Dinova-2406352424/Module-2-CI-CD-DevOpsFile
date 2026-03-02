@@ -52,6 +52,21 @@ class ProductServiceImplTest {
     }
 
     @Test
+    void createGeneratesIdWhenBlank() {
+        Product product = new Product();
+        product.setProductId(" ");
+        product.setProductName("Sample Product");
+        product.setProductQuantity(10);
+
+        Product createdProduct = productService.create(product);
+
+        assertNotNull(createdProduct.getProductId());
+        assertFalse(createdProduct.getProductId().isBlank());
+        assertDoesNotThrow(() -> UUID.fromString(createdProduct.getProductId()));
+        verify(productRepository).create(product);
+    }
+
+    @Test
     void findAllCollectsAllProducts() {
         Product product1 = new Product();
         product1.setProductId("id-1");
