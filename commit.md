@@ -180,11 +180,18 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
 - Commit: `db49543` - `Add unit tests for service and controller`
   - Menambahkan unit test untuk `ProductServiceImpl` dan `ProductController`.
   - Code coverage (JaCoCo `test`): **49% -> 96%**.
+- Commit: `8af7018` - `Add tests for 100% JaCoCo coverage`
+  - Menambahkan unit test untuk menutup case yang belum tercakup di `EshopApplication`, `ProductRepository`, dan `ProductServiceImpl`.
+  - Code coverage (JaCoCo `test`): **96% -> 100%**.
 - Commit: `f5087dc` - `Add PMD workflow`
   - Menambahkan: `.github/workflows/pmd.yml` (trigger setiap `push` ke setiap branch).
   - PMD version diset ke `7.0.0-rc4` sesuai instruksi PDF untuk kompatibilitas Java 21.
 - Commit: `158689b` - `Suppress PMD warning in EshopApplication`
   - Memperbaiki temuan PMD `UseUtilityClass` (false-positive) dengan suppression pada `EshopApplication`.
+- Commit: `518e8c7` - `Fix PMD warning in EshopApplication`
+  - Menghapus suppression dan melakukan refactor entrypoint (`main` -> `run`) agar tidak terdeteksi sebagai utility class oleh ruleset PMD quickstart (tanpa mengubah perilaku runtime aplikasi).
+- Commit: `1d68e03` - `Prevent 400 on large quantity input`
+  - Mengubah `productQuantity` dari `int` ke `long` dan menangani error binding pada controller agar input angka besar tidak menghasilkan error 400.
 - Commit: `04b2235` - `Make Gradle wrapper executable`
   - Membuat `gradlew` executable supaya workflow Linux bisa menjalankan `./gradlew ...`.
 - Commit: `09b645b` - `Add Render deployment workflow and Dockerfile`
@@ -234,3 +241,8 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Upload SARIF diatur agar otomatis diskip ketika fitur Code Scanning tidak tersedia.
 - Merge `module-2-exercise` -> `main` (merge commit eksplisit): `500359f` - `Merge pull request #22 from .../module-2-exercise`
   - PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/22
+
+- Commit: `00c19d9` - `Fix Scorecards publish on non-main`
+  - Membuat `publish_results` hanya aktif di branch `main` untuk menghindari error Scorecards saat push di branch lain.
+- Commit: `a071873` - `Skip Scorecards analysis on branches`
+  - `scorecard-action` membatasi event `push` agar hanya berjalan di default branch. Step analisis dan upload kini dijalankan hanya di `main` supaya workflow Scorecards tidak gagal di branch fitur dan tidak menghambat merge PR.

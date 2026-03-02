@@ -5,6 +5,7 @@ import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,11 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
+    public String createProductPost(@ModelAttribute Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "createProduct";
+        }
+
         service.create(product);
         return "redirect:/product/list";
     }
@@ -52,13 +57,17 @@ public class ProductController {
     }
 
     @PostMapping("/edit")
-    public String editProductPost(@ModelAttribute Product product, Model model) {
+    public String editProductPost(@ModelAttribute Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editProduct";
+        }
+
         service.update(product);
         return "redirect:/product/list";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteProductPost(@PathVariable("id") String id, Model model) {
+    public String deleteProductPost(@PathVariable("id") String id) {
         service.delete(id);
         return "redirect:/product/list";
     }

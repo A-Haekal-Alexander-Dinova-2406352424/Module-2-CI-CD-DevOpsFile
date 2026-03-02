@@ -33,3 +33,5 @@ Saat membangun fitur EShop (create/list/edit/delete), saya berusaha menjaga kode
    - Coupling tinggi dan ripple effect: contoh, jika controller langsung bergantung pada `CarServiceImpl`, perubahan internal service mudah “bocor” ke layer atas dan memaksa perubahan di banyak tempat.
    - Desain pewarisan yang salah meningkatkan risiko bug: endpoint atau behavior yang seharusnya khusus `Product` bisa ikut “terbawa” saat controller lain mewarisi controller tersebut.
    - Tanggung jawab bercampur lintas layer: contoh, jika generate `id` diletakkan di repository, aturan bisnis dan persistence tercampur sehingga reasoning lebih sulit dan potensi duplikasi meningkat saat fitur berkembang.
+## Link Hasil Deploy
+dule-2-ci-cd-devopsfile-eshop-paling-keren-7bc4b742.koyeb.app
