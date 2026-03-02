@@ -9,10 +9,9 @@ public interface CarService {
 
     List<Car> findAll();
 
-    Car findById(String carId);
+    Car findById(String id);
 
-    void update(String carId, Car car);
+    Car update(Car car);
 
-    void deleteCarById(String carId);
+    boolean delete(String id);
 }
-
