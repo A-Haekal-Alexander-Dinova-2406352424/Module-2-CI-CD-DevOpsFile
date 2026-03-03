@@ -13,7 +13,7 @@ public class CarRepository {
     private final List<Car> carData = new ArrayList<>();
 
     public Car create(Car car) {
-        if (car.getCarId() == null || car.getCarId().isBlank()) {
+        if (car.getCarId() == null) {
             UUID uuid = UUID.randomUUID();
             car.setCarId(uuid.toString());
         }
