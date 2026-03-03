@@ -9,9 +9,10 @@ public interface CarService {
 
     public List<Car> findAll();
 
-    Car findById(String id);
+    Car findById(String carId);
 
     public void update(String carId, Car car);
 
     public void deleteCarById(String carId);
 }
+
