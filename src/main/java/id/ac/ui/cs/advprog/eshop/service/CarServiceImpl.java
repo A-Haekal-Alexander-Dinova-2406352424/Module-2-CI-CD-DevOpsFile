@@ -2,21 +2,26 @@ package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CarServiceImpl implements CarService {
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
+
+    public CarServiceImpl(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
 
     @Override
     public Car create(Car car) {
-        // TODO Auto-generated method stub
+        if (car.getCarId() == null) {
+            car.setCarId(UUID.randomUUID().toString());
+        }
         carRepository.create(car);
         return car;
     }
@@ -30,21 +35,32 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car findById(String carId) {
-        Car car = carRepository.findById(carId);
-        return car;
+    public Car findById(String id) {
+        return carRepository.findById(id);
     }
 
     @Override
     public void update(String carId, Car car) {
-        // TODO Auto-generated method stub
-        carRepository.update(carId, car);
+        if (car == null) {
+            return;
+        }
+
+        car.setCarId(carId);
+        carRepository.update(car);
     }
 
     @Override
     public void deleteCarById(String carId) {
-        // TODO Auto-generated method stub
         carRepository.delete(carId);
     }
-}
 
+    @Override
+    public Car update(Car car) {
+        return carRepository.update(car);
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return carRepository.delete(id);
+    }
+}

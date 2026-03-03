@@ -5,14 +5,17 @@ import id.ac.ui.cs.advprog.eshop.model.Car;
 import java.util.List;
 
 public interface CarService {
-    public Car create(Car car);
+    Car create(Car car);
 
-    public List<Car> findAll();
+    List<Car> findAll();
 
-    Car findById(String carId);
+    Car findById(String id);
 
-    public void update(String carId, Car car);
+    void update(String carId, Car car);
 
-    public void deleteCarById(String carId);
+    void deleteCarById(String carId);
+
+    Car update(Car car);
+
+    boolean delete(String id);
 }
-
