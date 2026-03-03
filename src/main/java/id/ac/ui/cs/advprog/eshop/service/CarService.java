@@ -11,6 +11,10 @@ public interface CarService {
 
     Car findById(String id);
 
+    void update(String carId, Car car);
+
+    void deleteCarById(String carId);
+
     Car update(Car car);
 
     boolean delete(String id);

@@ -19,7 +19,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car create(Car car) {
-        if (car.getCarId() == null || car.getCarId().isBlank()) {
+        if (car.getCarId() == null) {
             car.setCarId(UUID.randomUUID().toString());
         }
         carRepository.create(car);
@@ -37,6 +37,21 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car findById(String id) {
         return carRepository.findById(id);
+    }
+
+    @Override
+    public void update(String carId, Car car) {
+        if (car == null) {
+            return;
+        }
+
+        car.setCarId(carId);
+        carRepository.update(car);
+    }
+
+    @Override
+    public void deleteCarById(String carId) {
+        carRepository.delete(carId);
     }
 
     @Override

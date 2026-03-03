@@ -6,12 +6,12 @@ import id.ac.ui.cs.advprog.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,11 +36,7 @@ public class CarController {
     }
 
     @PostMapping("/createCar")
-    public String createCarPost(@ModelAttribute Car car, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "createCar";
-        }
-
+    public String createCarPost(@ModelAttribute Car car, Model model) {
         service.create(car);
         return "redirect:listCar";
     }
@@ -52,32 +48,24 @@ public class CarController {
         return "carList";
     }
 
-    @GetMapping("/editCar/{id}")
-    public String editCarPage(@PathVariable("id") String id, Model model) {
-        Car car = service.findById(id);
-        if (car == null) {
-            return "redirect:listCar";
-        }
-
+    @GetMapping("/editCar/{carId}")
+    public String editCarPage(@PathVariable String carId, Model model) {
+        Car car = service.findById(carId);
         model.addAttribute("car", car);
         return "editCar";
     }
 
     @PostMapping("/editCar")
-    public String editCarPost(@ModelAttribute Car car, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "editCar";
-        }
-
+    public String editCarPost(@ModelAttribute Car car, Model model) {
         idLogger.log(car.getCarId());
-        service.update(car);
+        service.update(car.getCarId(), car);
         return "redirect:listCar";
     }
 
-    @PostMapping("/deleteCar/{id}")
-    public String deleteCarPost(@PathVariable("id") String id) {
-        idLogger.log(id);
-        service.delete(id);
+    @PostMapping("/deleteCar")
+    public String deleteCar(@RequestParam("carId") String carId) {
+        idLogger.log(carId);
+        service.deleteCarById(carId);
         return "redirect:listCar";
     }
 }
