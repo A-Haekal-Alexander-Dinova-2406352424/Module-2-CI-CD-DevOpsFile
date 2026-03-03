@@ -246,3 +246,67 @@ Kebutuhan PDF: buat branch `module-2-exercise`, tingkatkan code coverage, tambah
   - Membuat `publish_results` hanya aktif di branch `main` untuk menghindari error Scorecards saat push di branch lain.
 - Commit: `a071873` - `Skip Scorecards analysis on branches`
   - `scorecard-action` membatasi event `push` agar hanya berjalan di default branch. Step analisis dan upload kini dijalankan hanya di `main` supaya workflow Scorecards tidak gagal di branch fitur dan tidak menghambat merge PR.
+
+# Kepatuhan Riwayat Commit (Module 03 / Maintainability & OO Principles)
+
+Dokumen ini memetakan checkpoint commit yang diminta pada **Module 03 - Maintainability & OO Principles** (bagian Tutorial & Exercise) ke commit yang dibuat pada branch `before-solid` dan `after-solid`.
+
+## Tutorial & Exercise
+
+Kebutuhan PDF:
+
+- Buat branch `before-solid` dari `main`, implement fitur Car (model/repository/service/controller/templates) dengan commit per langkah, lalu push.
+- Merge `before-solid` ke `main` dengan merge commit eksplisit (bukan fast-forward), dan tanpa squash/force push.
+- Buat branch `after-solid`, refactor dengan menerapkan SOLID, commit, lalu push.
+- Merge `after-solid` ke `main` dengan merge commit eksplisit (bukan fast-forward), dan tanpa squash/force push.
+
+### Branch `before-solid`
+
+- Commit: `5e50a8a` - `Add Car model`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/model/Car.java`
+- Commit: `c7f8dbb` - `Add Car repository`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/repository/CarRepository.java`
+- Commit: `87c7fca` - `Add Car service`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/CarService.java`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/CarServiceImpl.java`
+- Commit: `ada946a` - `Add Car controller`
+  - Memodifikasi: `src/main/java/id/ac/ui/cs/advprog/eshop/controller/ProductController.java` (menambahkan handler Car sesuai tutorial)
+- Commit: `cf604fa` - `Add car templates`
+  - Menambahkan: `src/main/resources/templates/createCar.html`
+  - Menambahkan: `src/main/resources/templates/carList.html`
+  - Menambahkan: `src/main/resources/templates/editCar.html`
+
+Catatan merge `before-solid` -> `main` (sesuai PDF):
+
+- Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/32
+- Merge commit eksplisit di `main`: `4b65f7a` - `Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
+  - Bukti (2 parent): `4b65f7a parents:e95deed cf604fa Merge pull request #32 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
+
+Follow-up penyesuaian snippet (PDF hlm 88-97) + perbaikan CI:
+
+- Commit: `ea681de` - `Fixing before-SOLID`
+- Commit: `6496312` - `Fixing before-SOLID`
+- Commit: `a57e904` - `Revert "Merge branch 'main' into before-solid"`
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/35
+- Merge commit eksplisit di `main`: `eed87a9` - `Merge pull request #35 from A-Haekal-Alexander-Dinova-2406352424/before-solid`
+
+### Branch `after-solid`
+
+- Commit: `2e1a6a8` - `Refactor car feature with SOLID`
+  - Memisahkan controller Car menjadi `CarController` (SRP) dan menghilangkan inheritance yang tidak relevan.
+  - Membuat controller/service bergantung pada abstraksi (`CarService`, `CarRepository`) serta memindahkan implementasi ke class konkret (`CarServiceImpl`, `InMemoryCarRepository`) (DIP/OCP).
+
+Catatan merge `after-solid` -> `main` (sesuai PDF):
+
+- Lakukan merge via Pull Request dengan opsi **Create a merge commit** (bukan squash/rebase, dan bukan fast-forward).
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/33
+- Merge commit eksplisit di `main`: `51f54f8` - `Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
+  - Bukti (2 parent): `51f54f8 parents:4b65f7a 2e1a6a8 Merge pull request #33 from A-Haekal-Alexander-Dinova-2406352424/after-solid`
+
+Follow-up fix (align snippet + resolve PR conflicts + code quality):
+
+- Commit: `77beb6b` - `Fixing after-SOLID`
+- Commit: `66f5b9c` - `Merge main into after-solid`
+- Commit: `7ac708f` - `Remove unused Model parameters`
+- PR: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/36
