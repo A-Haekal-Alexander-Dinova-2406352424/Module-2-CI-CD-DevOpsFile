@@ -10,7 +10,8 @@ import java.util.UUID;
 
 @Repository
 public class CarRepository {
-    private final List<Car> carData = new ArrayList<>();
+    static int id = 0;
+    private List<Car> carData = new ArrayList<>();
 
     public Car create(Car car) {
         if (car.getCarId() == null) {
@@ -38,13 +39,14 @@ public class CarRepository {
         for (int i = 0; i < carData.size(); i++) {
             Car car = carData.get(i);
             if (car.getCarId().equals(id)) {
+                // Update the existing car with the new information
                 car.setCarName(updatedCar.getCarName());
                 car.setCarColor(updatedCar.getCarColor());
                 car.setCarQuantity(updatedCar.getCarQuantity());
                 return car;
             }
         }
-        return null;
+        return null; // Handle the case where car is not found
     }
 
     public void delete(String id) {
