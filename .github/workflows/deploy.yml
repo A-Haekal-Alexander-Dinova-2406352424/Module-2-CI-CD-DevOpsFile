@@ -43,10 +43,11 @@ jobs:
         if: ${{ env.KOYEB_API_TOKEN != '' }}
         uses: koyeb/action-git-deploy@v1
         with:
-          api_token: ${{ env.KOYEB_API_TOKEN }}
           app-name: module-2-ci-cd-devopsfile
           service-name: eshop
           git-builder: docker
+          git-sha: ${{ github.sha }}
+          skip-cache: true
           service-env: PORT=8080
           service-ports: "8080:http"
           service-routes: "/:8080"
