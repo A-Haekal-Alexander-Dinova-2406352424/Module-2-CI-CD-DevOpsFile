@@ -41,8 +41,9 @@
         <td th:text="${car.carQuantity}"></td>
         <td>
             <div class="actions">
-                <a class="btn secondary" th:href="@{/car/editCar/{id}(id=${car.carId})}">Edit</a>
-                <form th:action="@{/car/deleteCar/{id}(id=${car.carId})}" method="post">
+                <a class="btn secondary" th:href="@{/car/editCar/{carId}(carId=${car.carId})}">Edit</a>
+                <form th:action="@{/car/deleteCar}" method="post">
+                    <input type="hidden" name="carId" th:value="${car.carId}"/>
                     <button class="btn danger" type="submit">Delete</button>
                 </form>
             </div>

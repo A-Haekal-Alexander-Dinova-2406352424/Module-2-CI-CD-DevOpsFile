@@ -13,6 +13,10 @@ public interface ProductService {
 
     Product update(Product product);
 
+    Product update(String id, Product product);
+
     boolean delete(String id);
+
+    boolean deleteProductById(String id);
 }
 
