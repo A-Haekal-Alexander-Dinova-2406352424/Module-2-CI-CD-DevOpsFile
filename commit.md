@@ -339,3 +339,100 @@ Kebutuhan PDF: menjawab pertanyaan refleksi di `README.md`.
   - Memperbarui refleksi Module 3 dengan contoh pemisahan logging via `IdLogger` (SRP/DIP/ISP) dan merapikan kutip agar konsisten.
 - PR update (commit `281e715`): (buat PR dari `reflection` ke `main`, lalu isi link PR setelah dibuat)
 - Merge commit update: (isi hash merge commit setelah PR update di-merge)
+
+# Kepatuhan Riwayat Commit (Module 04 / Refactoring & TDD)
+
+Dokumen ini memetakan checkpoint commit yang diminta pada **Module 04 - Refactoring and TDD** ke commit yang dibuat pada branch `order`.
+
+## Tutorial - Branch `order`
+
+Kebutuhan PDF:
+
+- Buat branch `order` dari `main`.
+- Ikuti tutorial TDD untuk `Order`, `OrderRepository`, dan `OrderService`.
+- Lakukan refactor `Order` dengan `OrderStatus` enum.
+- Jangan merge branch `order` ke `main` dulu.
+
+### Order Model
+
+- Commit: `b0a669d` - `[RED] Add tests for Order model`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/model/OrderTest.java`
+- Commit: `80a31c3` - `[RED] Add Order model skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/model/Order.java`
+- Commit: `a7c5205` - `[GREEN] Implement Order model`
+  - Mengimplementasikan constructor `Order`, generate `UUID`, `orderTime`, validasi produk tidak kosong, dan `setStatus`.
+- Commit: `66cbaae` - `[REFACTOR] Add OrderStatus enum`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/enums/OrderStatus.java`
+- Commit: `37ef2b4` - `[REFACTOR] Apply OrderStatus enum check to Order model`
+  - Mengganti hardcoded status string di model menjadi validasi berbasis `OrderStatus.contains(...)`.
+- Commit: `7ee8f66` - `[REFACTOR] Apply OrderStatus enum to Order model tests`
+  - Memperbarui `OrderTest` agar menggunakan `OrderStatus`.
+
+### Order Repository
+
+- Commit: `c59f692` - `[RED] Add tests for OrderRepository`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/repository/OrderRepositoryTest.java`
+- Commit: `3483329` - `[RED] Add OrderRepository skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/repository/OrderRepository.java`
+- Commit: `cc51c97` - `[GREEN] Implement OrderRepository class`
+  - Mengimplementasikan `save`, `findById`, dan `findAllByAuthor`.
+
+### Order Service
+
+- Commit: `e54591e` - `[RED] Add tests for OrderServiceImpl`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/service/OrderServiceImplTest.java`
+- Commit: `17d6414` - `[RED] Add OrderServiceImpl skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/OrderService.java`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/OrderServiceImpl.java`
+- Commit: `247184b` - `[GREEN] Implement OrderRepository class`
+  - Mengimplementasikan logic `createOrder`, `updateStatus`, `findById`, dan `findAllByAuthor` pada `OrderServiceImpl`.
+  - Catatan: pesan commit mengikuti teks PDF yang mengulang label `OrderRepository class`, tetapi perubahan aktualnya ada di layer service.
+
+## Exercise - Branch `order`
+
+Kebutuhan PDF:
+
+- Lanjutkan pekerjaan di branch `order`.
+- Ikuti TDD untuk `Payment`, `PaymentRepository`, dan `PaymentService`.
+- Implementasikan `Payment by Voucher Code` dan, karena NPM `2406352424` genap, `Payment by Bank Transfer`.
+- Buat PR dari `order` ke `main`, tetapi jangan di-merge.
+
+### Payment Model
+
+- Commit: `7446777` - `[RED] Add tests for Payment model`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/model/PaymentTest.java`
+- Commit: `0bcb846` - `[RED] Add Payment model skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/model/Payment.java`
+- Commit: `0c07daa` - `[GREEN] Implement Payment model`
+  - Mengimplementasikan penyimpanan relasi order, generate `UUID`, dan salinan defensif untuk `paymentData`.
+- Commit: `a6e23d8` - `[REFACTOR] Add payment enums`
+  - Menambahkan `PaymentStatus` dan `PaymentMethod`, lalu menerapkannya pada `Payment` dan `PaymentTest`.
+
+### Payment Repository
+
+- Commit: `95c9909` - `[RED] Add tests for PaymentRepository`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/repository/PaymentRepositoryTest.java`
+- Commit: `73e4aaa` - `[RED] Add PaymentRepository skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/repository/PaymentRepository.java`
+- Commit: `a8196ec` - `[GREEN] Implement PaymentRepository class`
+  - Mengimplementasikan `save`, `findById`, dan `findAll`.
+- Commit: `b6036c2` - `[REFACTOR] Simplify PaymentRepository lookup`
+  - Mengekstrak helper pencarian index agar update dan lookup berbagi satu alur.
+
+### Payment Service (Voucher Code + Bank Transfer)
+
+- Commit: `04eb20c` - `[RED] Add tests for PaymentServiceImpl`
+  - Menambahkan: `src/test/java/id/ac/ui/cs/advprog/eshop/service/PaymentServiceImplTest.java`
+  - Mencakup validasi `Voucher Code` dan `Bank Transfer`.
+- Commit: `93bffbc` - `[RED] Add PaymentServiceImpl skeleton`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/PaymentService.java`
+  - Menambahkan: `src/main/java/id/ac/ui/cs/advprog/eshop/service/PaymentServiceImpl.java`
+- Commit: `a3839e7` - `[GREEN] Implement PaymentServiceImpl`
+  - Mengimplementasikan `addPayment`, `setStatus`, `getPayment`, `getAllPayments`, serta sinkronisasi status Order (`SUCCESS` -> `SUCCESS`, `REJECTED` -> `FAILED`).
+- Commit: `ef5c004` - `[REFACTOR] Extract payment validators`
+  - Mengekstrak validasi voucher dan bank transfer ke validator terpisah (`PaymentDataValidator`, `VoucherCodePaymentValidator`, `BankTransferPaymentValidator`).
+
+## Pull Request
+
+- PR `order` -> `main`: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/40
+- Status: sengaja **tetap terbuka** dan **belum di-merge**, sesuai instruksi PDF Module 4.
