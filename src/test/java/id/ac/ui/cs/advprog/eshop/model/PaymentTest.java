@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,21 +31,21 @@ class PaymentTest {
 
     @Test
     void createPaymentStoresAllFields() {
-        Payment payment = new Payment(order, "Voucher Code", "SUCCESS", paymentData);
+        Payment payment = new Payment(order, PaymentMethod.VOUCHER_CODE.getDisplayName(), PaymentStatus.SUCCESS.name(), paymentData);
 
         assertNotNull(payment.getId());
         assertEquals(order, payment.getOrder());
-        assertEquals("Voucher Code", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getDisplayName(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.name(), payment.getStatus());
         assertEquals(paymentData, payment.getPaymentData());
     }
 
     @Test
     void setStatusUpdatesPaymentStatus() {
-        Payment payment = new Payment(order, "Voucher Code", "REJECTED", paymentData);
+        Payment payment = new Payment(order, PaymentMethod.VOUCHER_CODE.getDisplayName(), PaymentStatus.REJECTED.name(), paymentData);
 
-        payment.setStatus("SUCCESS");
+        payment.setStatus(PaymentStatus.SUCCESS.name());
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.name(), payment.getStatus());
     }
 }
