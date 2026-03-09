@@ -436,3 +436,17 @@ Kebutuhan PDF:
 
 - PR `order` -> `main`: https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/40
 - Status: sengaja **tetap terbuka** dan **belum di-merge**, sesuai instruksi PDF Module 4.
+
+## Documentation - Branch `documentation`
+
+- Commit: `700dc79` - `Document Module 4 commits`
+  - Memperbarui `commit.md` dengan checkpoint Module 4 serta link PR `order` yang memang harus tetap terbuka.
+- PR update (commit `700dc79`): https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/41
+- Merge commit update: (isi hash merge commit setelah PR update di-merge)
+
+## Reflection - Branch `reflection`
+
+- Commit: `98e6bce` - `Add Module 4 reflection`
+  - Memodifikasi `README.md` untuk menjawab dua pertanyaan refleksi Module 4 (TDD dan F.I.R.S.T.).
+- PR update (commit `98e6bce`): https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/42
+- Merge commit update: (isi hash merge commit setelah PR update di-merge)
