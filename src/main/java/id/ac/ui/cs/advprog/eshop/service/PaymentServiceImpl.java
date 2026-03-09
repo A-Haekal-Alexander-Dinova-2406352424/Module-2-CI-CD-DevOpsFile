@@ -1,8 +1,13 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
+import id.ac.ui.cs.advprog.eshop.service.payment.BankTransferPaymentValidator;
+import id.ac.ui.cs.advprog.eshop.service.payment.PaymentDataValidator;
+import id.ac.ui.cs.advprog.eshop.service.payment.VoucherCodePaymentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +17,11 @@ import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+    private final Map<PaymentMethod, PaymentDataValidator> validators = Map.of(
+            PaymentMethod.VOUCHER_CODE, new VoucherCodePaymentValidator(),
+            PaymentMethod.BANK_TRANSFER, new BankTransferPaymentValidator()
+    );
+
     @Autowired
     private PaymentRepository paymentRepository;
 
@@ -42,41 +52,20 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private String determineStatus(String method, Map<String, String> paymentData) {
-        if ("Voucher Code".equalsIgnoreCase(method)) {
-            return isValidVoucherCode(paymentData.get("voucherCode")) ? "SUCCESS" : "REJECTED";
+        PaymentMethod paymentMethod = PaymentMethod.from(method);
+        PaymentDataValidator validator = validators.get(paymentMethod);
+        if (validator == null) {
+            return PaymentStatus.REJECTED.name();
         }
-
-        if ("Bank Transfer".equalsIgnoreCase(method)) {
-            return hasValue(paymentData.get("bankName")) && hasValue(paymentData.get("referenceCode"))
-                    ? "SUCCESS"
-                    : "REJECTED";
-        }
-
-        return "REJECTED";
-    }
-
-    private boolean isValidVoucherCode(String voucherCode) {
-        if (voucherCode == null || voucherCode.length() != 16 || !voucherCode.startsWith("ESHOP")) {
-            return false;
-        }
-
-        int numericCharacters = 0;
-        for (char character : voucherCode.toCharArray()) {
-            if (Character.isDigit(character)) {
-                numericCharacters++;
-            }
-        }
-        return numericCharacters == 8;
-    }
-
-    private boolean hasValue(String value) {
-        return value != null && !value.isBlank();
+        return validator.isValid(paymentData)
+                ? PaymentStatus.SUCCESS.name()
+                : PaymentStatus.REJECTED.name();
     }
 
     private void syncOrderStatus(Order order, String paymentStatus) {
-        if ("SUCCESS".equals(paymentStatus)) {
-            order.setStatus("SUCCESS");
-        } else if ("REJECTED".equals(paymentStatus)) {
+        if (PaymentStatus.SUCCESS.name().equals(paymentStatus)) {
+            order.setStatus(PaymentStatus.SUCCESS.name());
+        } else if (PaymentStatus.REJECTED.name().equals(paymentStatus)) {
             order.setStatus("FAILED");
         }
     }
