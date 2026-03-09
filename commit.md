@@ -442,11 +442,13 @@ Kebutuhan PDF:
 - Commit: `700dc79` - `Document Module 4 commits`
   - Memperbarui `commit.md` dengan checkpoint Module 4 serta link PR `order` yang memang harus tetap terbuka.
 - PR update (commit `700dc79`): https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/41
-- Merge commit update: (isi hash merge commit setelah PR update di-merge)
+- Merge commit update: `4d01d42` - `Merge pull request #41 from A-Haekal-Alexander-Dinova-2406352424/documentation`
+  - Bukti (2 parent): `4d01d42 parents:7c57697 05cac47 Merge pull request #41 from A-Haekal-Alexander-Dinova-2406352424/documentation`
 
 ## Reflection - Branch `reflection`
 
 - Commit: `98e6bce` - `Add Module 4 reflection`
   - Memodifikasi `README.md` untuk menjawab dua pertanyaan refleksi Module 4 (TDD dan F.I.R.S.T.).
 - PR update (commit `98e6bce`): https://github.com/A-Haekal-Alexander-Dinova-2406352424/Module-2-CI-CD-DevOpsFile/pull/42
-- Merge commit update: (isi hash merge commit setelah PR update di-merge)
+- Merge commit update: `7c57697` - `Merge pull request #42 from A-Haekal-Alexander-Dinova-2406352424/reflection`
+  - Bukti (2 parent): `7c57697 parents:9632870 98e6bce Merge pull request #42 from A-Haekal-Alexander-Dinova-2406352424/reflection`
