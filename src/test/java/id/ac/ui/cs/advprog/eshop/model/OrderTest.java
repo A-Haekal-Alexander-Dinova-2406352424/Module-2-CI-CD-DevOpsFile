@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,30 +36,30 @@ class OrderTest {
         assertNotNull(order.getOrderTime());
         assertEquals(products, order.getProducts());
         assertEquals("Natasya", order.getAuthor());
-        assertEquals("WAITING_PAYMENT", order.getStatus());
+        assertEquals(OrderStatus.WAITING_PAYMENT.name(), order.getStatus());
     }
 
     @Test
     void createOrderWithValidStatusKeepsProvidedStatus() {
-        Order order = new Order(products, "Natasya", "SUCCESS");
+        Order order = new Order(products, "Natasya", OrderStatus.SUCCESS.name());
 
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(OrderStatus.SUCCESS.name(), order.getStatus());
     }
 
     @Test
     void createOrderWithInvalidStatusFallsBackToWaitingPayment() {
         Order order = new Order(products, "Natasya", "PAID");
 
-        assertEquals("WAITING_PAYMENT", order.getStatus());
+        assertEquals(OrderStatus.WAITING_PAYMENT.name(), order.getStatus());
     }
 
     @Test
     void setStatusWithValidValueUpdatesOrderStatus() {
         Order order = new Order(products, "Natasya");
 
-        order.setStatus("CANCELLED");
+        order.setStatus(OrderStatus.CANCELLED.name());
 
-        assertEquals("CANCELLED", order.getStatus());
+        assertEquals(OrderStatus.CANCELLED.name(), order.getStatus());
     }
 
     @Test
@@ -67,6 +68,6 @@ class OrderTest {
 
         order.setStatus("PAID");
 
-        assertEquals("WAITING_PAYMENT", order.getStatus());
+        assertEquals(OrderStatus.WAITING_PAYMENT.name(), order.getStatus());
     }
 }
