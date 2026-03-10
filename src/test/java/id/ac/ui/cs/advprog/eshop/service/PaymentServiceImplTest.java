@@ -4,11 +4,13 @@ import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
+import id.ac.ui.cs.advprog.eshop.service.payment.BankTransferPaymentValidator;
+import id.ac.ui.cs.advprog.eshop.service.payment.PaymentDataValidator;
+import id.ac.ui.cs.advprog.eshop.service.payment.VoucherCodePaymentValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -28,7 +30,6 @@ class PaymentServiceImplTest {
     @Mock
     private PaymentRepository paymentRepository;
 
-    @InjectMocks
     private PaymentServiceImpl paymentService;
 
     private Order order;
@@ -40,6 +41,12 @@ class PaymentServiceImplTest {
         product.setProductName("Laptop");
         product.setProductQuantity(1);
         order = new Order(List.of(product), "Natasya");
+
+        List<PaymentDataValidator> validators = List.of(
+                new VoucherCodePaymentValidator(),
+                new BankTransferPaymentValidator()
+        );
+        paymentService = new PaymentServiceImpl(paymentRepository, validators);
     }
 
     @Test

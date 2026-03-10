@@ -1,29 +1,28 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
-import id.ac.ui.cs.advprog.eshop.service.payment.BankTransferPaymentValidator;
 import id.ac.ui.cs.advprog.eshop.service.payment.PaymentDataValidator;
-import id.ac.ui.cs.advprog.eshop.service.payment.VoucherCodePaymentValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    private final Map<PaymentMethod, PaymentDataValidator> validators = Map.of(
-            PaymentMethod.VOUCHER_CODE, new VoucherCodePaymentValidator(),
-            PaymentMethod.BANK_TRANSFER, new BankTransferPaymentValidator()
-    );
+    private final Map<PaymentMethod, PaymentDataValidator> validators;
+    private final PaymentRepository paymentRepository;
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    public PaymentServiceImpl(PaymentRepository paymentRepository, List<PaymentDataValidator> validatorList) {
+        this.paymentRepository = paymentRepository;
+        this.validators = buildValidatorMap(validatorList);
+    }
 
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
@@ -66,7 +65,15 @@ public class PaymentServiceImpl implements PaymentService {
         if (PaymentStatus.SUCCESS.name().equals(paymentStatus)) {
             order.setStatus(PaymentStatus.SUCCESS.name());
         } else if (PaymentStatus.REJECTED.name().equals(paymentStatus)) {
-            order.setStatus("FAILED");
+            order.setStatus(OrderStatus.FAILED.name());
         }
+    }
+
+    private Map<PaymentMethod, PaymentDataValidator> buildValidatorMap(List<PaymentDataValidator> validatorList) {
+        Map<PaymentMethod, PaymentDataValidator> validatorMap = new EnumMap<>(PaymentMethod.class);
+        for (PaymentDataValidator validator : validatorList) {
+            validatorMap.put(validator.supportedMethod(), validator);
+        }
+        return Map.copyOf(validatorMap);
     }
 }
