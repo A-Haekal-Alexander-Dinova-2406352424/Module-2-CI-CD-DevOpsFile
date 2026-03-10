@@ -66,3 +66,7 @@ dule-2-ci-cd-devopsfile-eshop-paling-keren-7bc4b742.koyeb.app
    - Mengubah `OrderServiceImpl` menjadi constructor injection dan menyederhanakan `updateStatus` menjadi update status pada object yang sama lalu `save`.
    - Memperkuat validasi pada `Order` (guard clause untuk products kosong) dan memperbaiki `OrderStatus.contains` agar lebih robust (handle `null` dan cek value enum).
    - Saran lanjutan (belum dieksekusi karena berpotensi mengubah behavior yang sudah dites): hindari `return null` pada `createOrder`, serta ganti magic strings menjadi enum/konstanta terpusat.
+
+Bukti/Link:
+- PR partner yang saya review (inline comments ada di tab Files changed): https://github.com/A-Fakhri-Husaini-Romza-2406436972/Modul-1-Coding-Standards/pull/20
+- PR refactor yang saya buat (refactor/2406352424 -> order): https://github.com/A-Fakhri-Husaini-Romza-2406436972/Modul-1-Coding-Standards/pull/21
