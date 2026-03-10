@@ -37,22 +37,3 @@ Saat membangun fitur EShop (create/list/edit/delete), saya berusaha menjaga kode
    - Tanggung jawab bercampur lintas layer: contoh, jika generate `id` diletakkan di repository, aturan bisnis dan persistence tercampur sehingga reasoning lebih sulit dan potensi duplikasi meningkat saat fitur berkembang.
 ## Link Hasil Deploy
 dule-2-ci-cd-devopsfile-eshop-paling-keren-7bc4b742.koyeb.app
-
-## Refleksi Bonus 2 (Refactor Kode Teman)
-
-1. Menurut saya, kode pasangan saya sudah fungsional dan sudah menerapkan alur fitur payment dengan baik. Namun masih ada aspek maintainability yang kurang: ada ketergantungan langsung ke implementasi konkret validator di `PaymentServiceImpl`, ada string status yang hardcoded, serta pemetaan validator ke method yang belum cukup terbuka untuk ekstensi. Di beberapa bagian juga masih ada field injection yang membuat dependency kurang eksplisit.
-
-2. Kontribusi yang saya lakukan adalah melakukan refactor terukur tanpa mengubah behavior bisnis. Saya memperbaiki struktur dependency di service payment, merapikan normalisasi method payment agar lebih aman terhadap locale, dan menyesuaikan unit test supaya tetap memverifikasi behavior setelah refactor. Saya juga memastikan perubahan aman dengan menjalankan `test` dan `functionalTest`.
-
-3. Code smell yang saya temukan:
-   - **Tight coupling / concrete dependency**: `PaymentServiceImpl` menginisialisasi validator konkret secara langsung.
-   - **Magic string**: penggunaan string status order seperti `"FAILED"` secara hardcoded.
-   - **Kurang extensible**: pemetaan validator tidak berbasis kontrak method yang didukung masing-masing validator.
-   - **Dependency kurang eksplisit**: penggunaan field injection pada service membuat dependency tidak jelas dari constructor.
-
-4. Langkah refactor yang saya sarankan dan eksekusi:
-   - Menambahkan kontrak `supportedMethod()` pada `PaymentDataValidator` agar setiap validator mendeklarasikan method yang didukung.
-   - Mengubah `PaymentServiceImpl` ke constructor injection dan menerima `List<PaymentDataValidator>`, lalu membangun registry validator secara dinamis.
-   - Menghilangkan hardcoded status order dengan memakai `OrderStatus.FAILED.name()`.
-   - Menjadikan validator sebagai Spring component agar dependensi dikelola container, bukan dibuat manual di service.
-   - Memperbarui unit test `PaymentServiceImplTest` supaya sesuai konstruktor baru dan tetap menjaga coverage perilaku utama.
