@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.enums;
 
+import java.util.Locale;
+
 public enum PaymentMethod {
     VOUCHER_CODE("Voucher Code"),
     BANK_TRANSFER("Bank Transfer"),
@@ -22,12 +24,12 @@ public enum PaymentMethod {
 
         String normalized = value
                 .trim()
-                .toUpperCase()
+                .toUpperCase(Locale.ROOT)
                 .replace('-', '_')
                 .replace(' ', '_');
 
         for (PaymentMethod method : values()) {
-            if (method.name().equals(normalized) || method.displayName.toUpperCase().replace(' ', '_').equals(normalized)) {
+            if (method.name().equals(normalized) || method.displayName.toUpperCase(Locale.ROOT).replace(' ', '_').equals(normalized)) {
                 return method;
             }
         }
