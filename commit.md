@@ -407,6 +407,8 @@ Kebutuhan PDF:
   - Mengimplementasikan penyimpanan relasi order, generate `UUID`, dan salinan defensif untuk `paymentData`.
 - Commit: `a6e23d8` - `[REFACTOR] Add payment enums`
   - Menambahkan `PaymentStatus` dan `PaymentMethod`, lalu menerapkannya pada `Payment` dan `PaymentTest`.
+- Commit: `bdd7c5d` - `[REFACTOR] Use Locale in PaymentMethod normalization`
+  - Memperbaiki warning PMD terkait `String.toUpperCase()` dengan menambahkan `Locale.ROOT` pada normalisasi di `PaymentMethod`.
 
 ### Payment Repository
 
