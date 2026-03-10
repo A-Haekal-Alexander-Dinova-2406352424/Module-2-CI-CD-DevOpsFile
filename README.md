@@ -43,3 +43,26 @@ Saat membangun fitur EShop (create/list/edit/delete), saya berusaha menjaga kode
 2. Secara umum, test yang saya tulis sudah cukup mengikuti prinsip F.I.R.S.T. `Fast`: seluruh unit test berjalan cepat karena repository masih in-memory dan dependency eksternal dimock dengan Mockito. `Independent`: tiap test membuat data sendiri di `setUp` dan tidak bergantung pada urutan eksekusi test lain. `Repeatable`: hasilnya konsisten karena tidak tergantung jaringan, database, atau state global yang berubah-ubah. `Self-validating`: semua test menggunakan assertion/verifikasi yang jelas, jadi hasil pass/fail bisa dibaca tanpa inspeksi manual. `Timely`: pada Module 4 saya menulis test lebih dulu sebelum implementasi utama dan sebelum refactor besar. Meski begitu, masih ada ruang perbaikan. Model `Order` saat ini masih membuat `UUID` dan timestamp langsung dari dalam class; test saya hanya mengecek bahwa nilainya ada, bukan mengontrol sumber waktunya. Kalau logika waktu nanti makin kompleks, saya sebaiknya menginjeksi `Clock` atau abstraksi generator ID agar test tetap cepat, deterministik, dan lebih presisi.
 ## Link Hasil Deploy
 dule-2-ci-cd-devopsfile-eshop-paling-keren-7bc4b742.koyeb.app
+
+## Bonus Reflection (Bonus 2)
+
+1. Menurut saya, kode partner saya sudah fungsional dan test coverage-nya kuat, jadi perubahan perilaku gampang terdeteksi. Namun, masih ada beberapa aspek yang bisa ditingkatkan dari sisi maintainability: logic validasi pembayaran di `PaymentServiceImpl` cenderung "branchy" (banyak `if` per method), masih banyak string literal untuk method/status/key, serta ada bagian service yang bisa dibuat lebih konsisten (misalnya gaya dependency injection dan error handling).
+
+2. Kontribusi saya ke kode partner:
+   - Melakukan refactor di branch `refactor/2406352424` pada repository partner dan membuat PR `#21` ke branch `order`.
+   - Menambah struktur validator pembayaran (strategy) agar validasi tiap method terpisah dan lebih mudah dikembangkan.
+   - Merapikan `OrderServiceImpl` (constructor injection, simplify update status) dan memperbaiki beberapa validasi/utility di `Order` dan `OrderStatus`.
+   - Memberikan review (inline comments) pada PR partner `#20` (order -> main) sebagai masukan per baris.
+
+3. Code smells yang saya temukan:
+   - Long conditional / kompleksitas cabang pada validasi payment method (mudah membesar saat method bertambah).
+   - Magic strings (status/method/key) yang tersebar.
+   - Inconsistency pada dependency injection (field injection vs constructor injection).
+   - Unnecessary object creation pada update status order (membuat `Order` baru hanya untuk mengganti status).
+   - API yang rawan NPE (contoh: `createOrder` mengembalikan `null` untuk duplikasi ID) dan exception tanpa message.
+
+4. Langkah refactor yang saya sarankan dan eksekusi:
+   - Mengekstrak validasi payment data menjadi interface `PaymentDataValidator` dengan implementasi per method (voucher/bank transfer/cash on delivery), lalu `PaymentServiceImpl` memilih validator berdasarkan method.
+   - Mengubah `OrderServiceImpl` menjadi constructor injection dan menyederhanakan `updateStatus` menjadi update status pada object yang sama lalu `save`.
+   - Memperkuat validasi pada `Order` (guard clause untuk products kosong) dan memperbaiki `OrderStatus.contains` agar lebih robust (handle `null` dan cek value enum).
+   - Saran lanjutan (belum dieksekusi karena berpotensi mengubah behavior yang sudah dites): hindari `return null` pada `createOrder`, serta ganti magic strings menjadi enum/konstanta terpusat.
